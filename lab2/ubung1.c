@@ -2,7 +2,7 @@
 
 /* Schreibt die erste N (angegebene Zahl) auf den Bildschirm aus */
 
-int sqrt_i(int n);
+int sqrt_i(int);
 
 int main(int argc, char** argv){
     int n;
