@@ -7,24 +7,22 @@ also die Berechnung ist dann abzubrechen, wenn der Unterschied der letzten zwei 
 als der Grenzwert ist. Wenden Sie das nachfolgende Programm an:*/
 
 #include <stdio.h>
-#include <math.h>
 
 #define GRENZWERT 1E-12
 
-float get_wert(int);
+double get_wert(int);
 
 int main() {
-    int n = 1;
-	float sum = get_wert(n), sumlast = 0.0f;
-    while(fabs(sum-sumlast) >= GRENZWERT){
-        sumlast = sum;
+    int n = 0;
+	double sum = 0.0;
+    do{
         sum+=get_wert(++n);
-    }
+    }while(get_wert(n) >= GRENZWERT);
 	printf("%3.12f", sum);
 	return 0;
 
 }
 
-float get_wert(int n){
-    return 1.0f / (16*n*n-1); //((4n - 1) * (4n + 1)) = (4^2*n^2 - 1^2)
+double get_wert(int n){
+    return 1.0 / (16.0*n*n-1.0); //((4n - 1) * (4n + 1)) = (4^2*n^2 - 1^2)
 }

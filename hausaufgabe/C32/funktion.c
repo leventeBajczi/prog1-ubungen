@@ -16,37 +16,40 @@ nachfolgende Programm einzubauen. Es ist verboten math.h-Header zu benützen!*/
 
 
 double powx(double x, int y){
+    if(y==0)return 1;
+    if(y<0)return 1.0/powx(x, -1.0*y);
     double a = x;
     for(int i = 1; i<y; i++){
-        x*=a;
+        a*=x;
     }
-    return x;
+    return a;
 }
 
 
 double get_wert(int n, double x){
-    return (2*powx(x, 2*n - 1) / (2*n - 1));
+    return (2.0*powx(x, 2.0*n - 1) / (2.0*n - 1.0));
 }
 
 double f3(double x){
     int n = 1;
-    double sum = 0.0f, i = get_wert(n, x), i_plus = get_wert(++n, x);
+    double sum = 0.0, i = get_wert(n, x), i_plus = get_wert(++n, x);
+    sum+=i;
     while(i - i_plus >= GRENZWERT || i - i_plus <= -1 * GRENZWERT){
-        sum+=i;
-
         i = i_plus;
         i_plus = get_wert(++n, x);
+        sum+=i;
     }
     return sum;
 }
 double f3_eff(double x){
     int n = 1;
-    double sum = 0.0f, i = get_wert(n, x), i_plus = i * x * x / (2.0f*n + 1.0f) * (2.0f*n - 1.0f);
+    double sum = 0.0, i = get_wert(n, x), i_plus = i * x * x / (2.0*n + 1.0) * (2.0*n - 1.0);
+    sum+=i;
     while(i - i_plus >= GRENZWERT || i - i_plus <= -1 * GRENZWERT){
         n++;
-        sum+=i;
         i = i_plus;
-        i_plus = i * x * x / (2.0f*n + 1.0f) * (2.0f*n - 1.0f);
+        i_plus = i * x * x / (2.0*n + 1.0) * (2.0*n - 1.0);
+        sum+=i;
     }
     return sum;
 }
@@ -61,4 +64,4 @@ int main() {
 	printf("%1.7f\n", f3_eff(x));
 	return 0;
 
-}
+} 
